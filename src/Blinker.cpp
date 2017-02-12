@@ -75,7 +75,7 @@ namespace Zepco {
 	 * @return	void
 	 */
 	void Blinker::ledOn() {
-		_log("ledON");
+		_log("[Zepco::Blinker] Led ON");
 
 		if (_ledInversion) {
 			digitalWrite(_ledPin, LOW);
@@ -90,7 +90,7 @@ namespace Zepco {
 	 * @return	void
 	 */
 	void Blinker::ledOff() {
-		_log("ledOFF");
+		_log("[Zepco::Blinker] Led OFF");
 
 		if (_ledInversion) {
 			digitalWrite(_ledPin, HIGH);
@@ -120,6 +120,7 @@ namespace Zepco {
 	 * Inicjuje wszystkie niezbędne rzeczy do działania obiektu
 	 */
 	void Blinker::init() {
+		_log("[Zepco::Blinker] Init");
 		pinMode(_ledPin, OUTPUT);
 	}
 

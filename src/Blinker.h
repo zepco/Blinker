@@ -10,16 +10,13 @@
 
 #include <Arduino.h>
 
-#define	STEP_NOTHING	0
-#define	STEP_LED_ON		1
-#define STEP_LED_OFF	2
-#define STEP_DELAY		3
-
 namespace Zepco {
 	class Blinker {
 		struct Blink {
 			int count, onTime, beetweenTime, delayTime;
 		};
+
+		enum Step {STOPPED, LED_ON, LED_OFF, DELAY};
 
 		public:
 			Blinker(uint8_t pin);
@@ -37,13 +34,13 @@ namespace Zepco {
 			void update();
 
 		private:
-			uint8_t _ledPin = 2;
+			uint8_t _ledPin;
 			bool _ledInversion = false;
 			unsigned long _lastMillis = 0;
 			int	_interval = 0;
 			Blink* _currentBlink = NULL;
 			Blink* _nextBlink = NULL;
-			int _step = STEP_NOTHING;
+			Step _step = STOPPED;
 			int _stepCount = 0;
 
 			bool _logActivity = false;

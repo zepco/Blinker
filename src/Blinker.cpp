@@ -6,7 +6,7 @@
  * @version	0.1
  */
 #include <Arduino.h>
-#include <Blinker.h>
+#include "Blinker.h"
 
 namespace Zepco {
 	/**
@@ -140,38 +140,38 @@ namespace Zepco {
 
 		unsigned long now = millis();
 
-		if (_step == STEP_NOTHING)
+		if (_step == STOPPED)
 		{
 			_stepCount = (*_currentBlink).count;
 			_interval = (*_currentBlink).onTime;
 			_lastMillis = now;
-			_step = STEP_LED_ON;
+			_step = LED_ON;
 			ledOn();
 		}
 
 		if (now - _lastMillis > _interval) {
 			switch (_step) {
-				case STEP_LED_ON:
+				case LED_ON:
 					ledOff();
 					_stepCount--;
 					if (_stepCount == 0) {
-						_step = STEP_DELAY;
+						_step = DELAY;
 						_interval = (*_currentBlink).delayTime;
 					} else {
-						_step = STEP_LED_OFF;
+						_step = LED_OFF;
 						_interval = (*_currentBlink).beetweenTime;
 					}
 
 				break;
 
-				case STEP_LED_OFF:
+				case LED_OFF:
 					ledOn();
 					_interval = (*_currentBlink).onTime;
-					_step = STEP_LED_ON;
+					_step = LED_OFF;
 				break;
 
-				case STEP_DELAY:
-					_step = STEP_NOTHING;
+				case DELAY:
+					_step = STOPPED;
 					delete _currentBlink;
 					_currentBlink = NULL;
 				break;

@@ -167,7 +167,7 @@ namespace Zepco {
 				case LED_OFF:
 					ledOn();
 					_interval = (*_currentBlink).onTime;
-					_step = LED_OFF;
+					_step = LED_ON;
 				break;
 
 				case DELAY:
